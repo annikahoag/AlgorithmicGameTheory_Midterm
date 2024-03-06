@@ -176,3 +176,30 @@ def combineFile():
     mainResult = adder(mainResult, dataReader("reptocongress2-6.csv"))
     mainResult = adder(mainResult, dataReader("reptocongress2-7.csv"))
     return mainResult
+
+#Reading in data from files and adding data to a dictionary such that the key is the cardinality of that specific ranking
+def getTheRankings(fileName):
+    with open(fileName) as f:
+        #reader = f.read()
+        reader = f.readlines()
+
+    #Making delimeter a space instead of a comma
+    repl_delim = ' '
+    data = []
+    for ele in reader:
+        data.append(ele.replace(", ", repl_delim))
+
+    #Ask --> how to do copley (dictionary?), how to do pl. veto 
+    rankings=
+    for line in reader():
+        if inRankings(line, rankings):
+
+        else:
+
+def inRankings(line, rankings):
+    for i in range(len(rankings)):
+        if rankings[i]==line:
+            return True
+    return False
+
+getTheRankings("reptocongress2-1.csv")

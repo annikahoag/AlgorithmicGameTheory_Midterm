@@ -65,13 +65,13 @@ def rankedChoice():
     ranks[1].append("Jared Forrest Golden")
     ranks[2].append("Bruce Poliquin")
     ranks[3].append("Write In")
-    print(ranks)
+    #print(ranks)
     
     while len(ranks) > 1: ##while there is more than one candidate remaining
-        print(ranks[findMin(ranks)])
+        #print(ranks[findMin(ranks)])
         ranks.pop(findMin(ranks))
 
-    return ranks[0]
+    return ranks[0][4]
     
 
 def findMin(ranks):
@@ -85,6 +85,9 @@ def findMin(ranks):
     return currMinIndex
 
 
-print(rankedChoice())
+
+
+
+#print(rankedChoice())
 #print(plurality())
 #print(bordaCount())
