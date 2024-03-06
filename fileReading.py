@@ -177,43 +177,56 @@ def combineFile():
     mainResult = adder(mainResult, dataReader("reptocongress2-7.csv"))
     return mainResult
 
-
+#LEFT OFF: need 2nd combine file with dataReader being a helper function that does 183-191 in getThe Rankings
 #Reading in data from files and adding data to a dictionary such that the key is the cardinality of that specific ranking
-def getTheRankings(fileName):
-    with open(fileName) as f:
-        #reader = f.read()
-        reader = f.readlines()
+def getTheRankings(data):
+    #with open(fileName) as f:
+    #    #reader = f.read()
+    #    reader = f.readlines()
 
     #Making delimeter a space instead of a comma
-    repl_delim = ' '
-    data = []
-    for ele in reader:
-        data.append(ele.replace(", ", repl_delim))
+    #repl_delim = ' '
+    #data = []
+    #for ele in reader:
+     #   data.append(ele.replace(", ", repl_delim))
 
 
     # we are storing the different rankings in a dictionary, where the key is the actual
     # ranking, and the other part is the cardinality of that specific ranking combo
-    rankings = [data[0]]
-    numRankings = [1]
+    rankings = []
+    numRankings = []
+    count=0
     for line in data:
-        if (inRankings(line, rankings) != False):
+        #print("inRankings: ", inRankings(line, rankings))
+        if (inRankings(line, rankings) != -1):
+            #print(True)
             numRankings[inRankings(line, rankings)] += 1
         else:
+            #print(False)
             rankings.append(line)
             numRankings.append(1)
+           # print(rankings)
+            #print(numRankings)
+            #count+=1
+            #if count==2:
+            #    break
     print(rankings)
     print(numRankings)
             
 
 #function to determine whether a specific ranking already exists or not in rankings 
 def inRankings(line, rankings):
+    #print(line)
+    #print(rankings)
     for i in range(len(rankings)):
-        if rankings[i]==line:
+        #print(rankings[i])
+        if rankings[i] == line:
+            #print ("Found")
             return i
-    return False
+    return -1
 
 
 
-getTheRankings("reptocongress2-1.csv")
+getTheRankings(combineFile())
 
 ##getTheRankings("reptocongress2-1.csv")
