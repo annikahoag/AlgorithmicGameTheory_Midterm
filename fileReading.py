@@ -1,3 +1,6 @@
+# This function reads in the data and puts it into an array that we use to calculate
+# Borda Count and plurality
+
 def dataReader(fileName):
     with open(fileName) as f:
         #reader = f.read()
@@ -8,7 +11,6 @@ def dataReader(fileName):
     data = []
     for ele in reader:
         data.append(ele.replace(", ", repl_delim))
-
 
     #Setting up 2D array
     #Row indices represent T. Bond, J.F. Golden, B. Poliquin, Write-In in that order
@@ -21,18 +23,12 @@ def dataReader(fileName):
         results.append(col)
     #print(results)
 
-
     #Removing comma in names
     dataFinal=[]
     for line in data:
         tempLine = line.split(',')
         #tempLine = line.replace('\n', '')
         dataFinal.append(tempLine)
-    #print(dataFinal[0][0])
-    #print(len(data))
-
-    #for i in range(5):
-     #   print(data[i])
 
     ## 1ST PLACE RANKINGS ##
     #Adding values to 1st column of T. Bond
@@ -64,8 +60,6 @@ def dataReader(fileName):
             wiCounter+=1
     results[3][0] = wiCounter
 
-
-
     ## 2ND PLACE RANKINGS ##
     #Adding values to 2nd column of T. Bond
     bondCounter=0
@@ -96,8 +90,6 @@ def dataReader(fileName):
             wiCounter+=1
     results[3][1] = wiCounter
 
-
-
     ## 3RD PLACE RANKINGS ##
     #Adding values to 3rd column of T. Bond
     bondCounter=0
@@ -127,8 +119,6 @@ def dataReader(fileName):
         if dataFinal[i][2]=='Write-in':
             wiCounter+=1
     results[3][2] = wiCounter
-
-
 
     ## 4th PLACE RANKINGS ##
     #Adding values to 4th column of T. Bond
@@ -162,12 +152,16 @@ def dataReader(fileName):
 
     return results
 
+
+#adder adds together two files, mainResult and result2 into one mainResult
 def adder(mainResult, result2):
     for i in range(0, 4):
         for j in range(0, 4):
             mainResult[i][j] = mainResult[i][j] + result2[i][j]
     return mainResult
 
+
+#combineFile combines all our data files into one, which we use for Borda count and plurality
 def combineFile():
     mainResult = adder(dataReader("reptocongress2-1.csv"), dataReader("reptocongress2-2.csv"))
     mainResult = adder(mainResult, dataReader("reptocongress2-3.csv"))
@@ -177,25 +171,20 @@ def combineFile():
     mainResult = adder(mainResult, dataReader("reptocongress2-7.csv"))
     return mainResult
 
-#LEFT OFF: need 2nd combine file with dataReader being a helper function that does 183-191 in getThe Rankings
-#Reading in data from files and adding data to a dictionary such that the key is the cardinality of that specific ranking
+
+
+
+
+# This section we use for Copeland #
+
+#Reading in data from giantFile and adding data to parallel arrays
+# one array contains the different rankings
+# another parallel array contains the cardinality of that specific ranking at that index
 def getTheRankings(data):
-    #with open(fileName) as f:
-    #    #reader = f.read()
-    #    reader = f.readlines()
-
-    #Making delimeter a space instead of a comma
-    #repl_delim = ' '
-    #data = []
-    #for ele in reader:
-     #   data.append(ele.replace(", ", repl_delim))
-
-
-    # we are storing the different rankings in a dictionary, where the key is the actual
-    # ranking, and the other part is the cardinality of that specific ranking combo
+    # setting up parallel arrays
     rankings = []
     numRankings = []
-    count=0
+    count = 0
     for line in data:
         #print("inRankings: ", inRankings(line, rankings))
         if (inRankings(line, rankings) != -1):
@@ -205,14 +194,12 @@ def getTheRankings(data):
             #print(False)
             rankings.append(line)
             numRankings.append(1)
-           # print(rankings)
-            #print(numRankings)
-            #count+=1
-            #if count==2:
-            #    break
-    print(rankings)
-    print(numRankings)
-            
+
+#    for i in range(len(rankings)):
+        #print("Ranking: ",rankings[i]," Amount: ",numRankings[i])
+        #print("\n")
+    #return rankings, numRankings
+
 
 #function to determine whether a specific ranking already exists or not in rankings 
 def inRankings(line, rankings):
@@ -226,7 +213,35 @@ def inRankings(line, rankings):
     return -1
 
 
+# function that reads in our data files (used for copely)
+def dataReaderCope(fileName):
+    with open(fileName) as f:
+        #reader = f.read()
+        reader = f.readlines()
 
-getTheRankings(combineFile())
+    #Making delimeter a space instead of a comma
+    repl_delim = ' '
+    data = []
+    for ele in reader:
+        data.append(ele.replace(", ", repl_delim))
+    return data
 
-##getTheRankings("reptocongress2-1.csv")
+
+#function that combines all list of rankings into one giant mega list
+def giantFileMaker():
+    giantFile = dataReaderCope("reptocongress2-1.csv")
+    for line in (dataReaderCope("reptocongress2-2.csv")):
+        giantFile.append(line)
+    for line in (dataReaderCope("reptocongress2-3.csv")):
+        giantFile.append(line)
+    for line in (dataReaderCope("reptocongress2-4.csv")):
+        giantFile.append(line)
+    for line in (dataReaderCope("reptocongress2-5.csv")):
+        giantFile.append(line)
+    for line in (dataReaderCope("reptocongress2-6.csv")):
+        giantFile.append(line)
+    for line in (dataReaderCope("reptocongress2-7.csv")):
+        giantFile.append(line)
+    return giantFile
+
+#getTheRankings(giantFileMaker())
