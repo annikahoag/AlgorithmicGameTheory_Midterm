@@ -17,6 +17,7 @@ def main():
     rButton = Button(win, Point(500,350),100,50,"Show me results!","Red")
     qButton = Button(win,Point(500,650),80,40,"Quit","Grey")
 
+
     #get click from user
     pt = win.getMouse()
     while qButton.isClicked(pt) != True: #while user does not quit:
@@ -24,9 +25,25 @@ def main():
             text.undraw()
             rButton.unDraw()
             graphs(win)
+            realButton = Button(win,Point(500,500),200,50,"See Actual Results... (STV)","White")
+            pt = win.getMouse()
+            if realButton.isClicked(pt):
+                realWin = GraphWin("Real Results!",1400,800)
+                img1 = Image(Point(700,200),"round1STV.png")
+                img1label = Text(Point(50,200),"Round \n 1")
+                img1label.setSize(18)
+                img2 = Image(Point(700,600),"round2STV.png")
+                img2label = Text(Point(50,600),"Round \n 2")
+                img2label.setSize(18)
+                img1.draw(realWin)
+                img1label.draw(realWin)
+                img2.draw(realWin)
+                img2label.draw(realWin)
         pt = win.getMouse()  #get another user click
 
+
     win.close()
+
 
 
 def graphs(window):
@@ -173,10 +190,10 @@ def graphs(window):
     
 
     ## STV (what actually happened)
-    stvText = Text(Point(250,400),"Single Transferable Vote")
-    stvText.draw(window)
-    stvWinner = Text(Point(250,425),"The Winner is Jared Forrest Golden")
-    stvWinner.draw(window)
+##    stvText = Text(Point(250,400),"Real Results (STV)")
+##    stvText.draw(window)
+##    stvWinner = Text(Point(250,425),"The Winner is Jared Forrest Golden")
+##    stvWinner.draw(window)
     
 
 main()
