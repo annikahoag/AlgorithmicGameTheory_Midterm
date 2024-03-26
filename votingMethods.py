@@ -106,12 +106,26 @@ def findMin(ranks):
 
 
 # copelandddddd
-##def copeLand():
-##    rankings, numRankings = getTheRankings(giantFileMaker())
-##    #first, golden vs bond
+def copeland():
+    rankings, numRankings = getTheRankings(giantFileMaker())
+
+    gScore = 0
+    bScore = 0
+    pScore = 0
+
+    #first, golden vs bond
+    #loop through rankings, if golden appears before bond add numRankings at that index to gScore, otherwise do the same to bScore
+    for i in range(len(rankings)):
+        for j in range(len (rankings[i])):
+            if rankings[j]=="Golden":
+                gScore = gScore + numRankings[i]
+                break
+            elif rankings[j]=="Bond":
+                bScore = bScore + numRankings[i]
+
 ##    #second, golden vs poliquin
 ##    #third, bond vs poliquin
-##    for i in range(len(rankings)):
+
 
 
 #print(rankedChoice())
