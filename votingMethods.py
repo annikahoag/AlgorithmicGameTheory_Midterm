@@ -117,12 +117,12 @@ def copeland():
     #loop through rankings, if golden appears before bond add numRankings at that index to gScore, otherwise do the same to bScore
     for i in range(len(rankings)):
         for j in range(len (rankings[i])):
-            if rankings[j]=="Golden":
+            if rankings[j]=="Golden Jared Forrest":
                 gScore = gScore + numRankings[i]
                 break
-            elif rankings[j]=="Bond":
+            elif rankings[j]=="Bond Tiffany":
                 bScore = bScore + numRankings[i]
-
+    
 ##    #second, golden vs poliquin
 ##    #third, bond vs poliquin
 
